@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3005:3000"
+    networks:
+      - network1
+    container_name: frontend10
+    volumes:
+      - /app/node_modules
+      - /Users/avashneupane/DockerBook/multi_service_app_dockerized/frontend:/app
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3000:80"
+    networks:
+      - network1
+    container_name: backend10
+
+  database:
+    image: mongo
+    networks:
+      - network1
+    container_name: mongodb
+    volumes:
+      - db_data:/data/db
+
+networks:
+  network1:
+
+volumes:
+  db_data:
+
